@@ -1,0 +1,11 @@
+year,global_units,europe_units,global_source,europe_source,note
+2013,1477,1477,"Best Selling Cars Blog (2014), World Full Year 2013","Best Selling Cars Blog (2014)","Launch Nov 2013; all 2013 registrations were in Europe (US launch May 2014)"
+2014,16052,9744,"BMW Group press release, 9 Jan 2015","Nissan Europe press release (19 Jan 2015) + JATO via Automotive News Europe (15 Mar 2016): 5,804 BEV + 3,940 REx",
+2015,24057,12047,"BMW Group press release, 11 Jan 2016","JATO Dynamics via Automotive News Europe (15 Mar 2016)",
+2016,25500,15060,"HybridCars.com (26 Jan 2017)","EV Sales blog, Europe Dec 2016 (30 Jan 2017)","Global figure is approximate (~25,500)"
+2017,31482,20855,"BMW Group press release, 25 Jan 2018","EV Sales blog, Europe Dec 2017 (28 Jan 2018)",
+2018,34623,24432,"BMW Group Annual Report 2019, p. 68 (restated)","EV Sales blog, Europe Dec 2018 (28 Jan 2019)","Originally reported as 34,829 (BMW press release 14 Jan 2019); restated figure used"
+2019,39501,32451,"BMW Group Annual Report 2019, p. 68","JATO Dynamics via Carscoops (19 Feb 2020)",
+2020,26770,23361,"BMW Group press release, 12 Jan 2022","Carsalesbase.com, BMW i3 European sales","COVID-19 year"
+2021,28216,25029,"BMW Group press release, 12 Jan 2022","Carsalesbase.com, BMW i3 European sales",
+2022,22322,19802,"Derived: 250,000 total units produced (BMW Group press release, 30 Jun 2022) minus 227,678 sold 2013-2021","Derived: global 2022 x Europe share of 2021 (25,029 / 28,216 = 88.7%)","Fermi estimate; production ended July 2022"

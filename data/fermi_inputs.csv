@@ -1,0 +1,13 @@
+parameter,value,unit,source
+europe_new_car_registrations_2025,13271270,cars,"ACEA, New car registrations full year 2025 (EU + EFTA + UK), Jan 2026"
+europe_bev_registrations_2025,2585187,cars,"ACEA, New car registrations full year 2025 (EU + EFTA + UK), Jan 2026"
+europe_bev_registrations_2024,1992803,cars,"ACEA, New car registrations full year 2025 (EU + EFTA + UK), Jan 2026"
+europe_new_car_registrations_2024,12962714,cars,"ACEA, New car registrations full year 2025 (EU + EFTA + UK), Jan 2026"
+bmw_group_europe_deliveries_2025,1016360,cars,"BMW Group press release, 9 Jan 2026"
+bmw_group_europe_bev_share_2025,0.25,share,"BMW Group press release, 9 Jan 2026 (BEVs 'about a quarter' of European sales)"
+bmw_group_eu27plus2_bev_2025,202000,cars,"BMW Group press release, 29 Jan 2026 (>202,000 BEVs, 26.3% of sales in EU27+NO+IS)"
+ix3_share_of_bmw_bev_orders_europe,0.3333,share,"electrive.com, 27 Jan 2026, quoting BMW board member Jochen Goller: every third BEV BMW ordered in Europe is an iX3"
+model_life_cycle_years,8,years,"BMW i3 production ran ~8.5 years (BMW Group press release, 30 Jun 2022)"
+debrecen_plant_capacity,150000,cars per year,"BMW Group press release, 1 Jun 2022 (foundation stone of Plant Debrecen)"
+ix3_europe_orders_first_year,100000,orders,"BMW Group Plant Debrecen press release, Sep 2026 (100,000 European orders one year after premiere)"
+ix3_units_produced_by_jul_2026,50000,cars,"BMW Group press release, 28 Jul 2026"

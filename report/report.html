@@ -1,0 +1,372 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>DS 223 HW1 - Bass Model - BMW iX3</title><style>
+@page { size: A4; margin: 18mm 16mm; }
+body { font-family: "Georgia", "Times New Roman", serif; font-size: 10.5pt;
+       line-height: 1.45; color: #222; max-width: 820px; margin: auto; }
+h1 { font-size: 20pt; margin-bottom: 0; color: #1c4e80; }
+h2 { font-size: 14pt; color: #1c4e80; border-bottom: 1px solid #ccd; padding-bottom: 2px;
+     margin-top: 22px; }
+h3 { font-size: 12pt; color: #333; }
+table { border-collapse: collapse; width: 100%; font-size: 9pt; margin: 8px 0 12px;
+        page-break-inside: avoid; }
+th, td { border: 1px solid #ccc; padding: 3px 6px; }
+th { background: #eef2f7; }
+img { display: block; max-width: 92%; margin: 10px auto; page-break-inside: avoid; }
+a { color: #1c4e80; word-break: break-all; }
+p, li { text-align: justify; }
+</style>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head><body><h1>Innovation Diffusion Analysis: BMW iX3 (Neue Klasse)</h1>
+<p><strong>DS 223 Marketing Analytics, Homework 1: Bass Model</strong></p>
+<h2>1. Selected innovation</h2>
+<p><strong>BMW iX3, "Next-gen electric SUV"</strong>, category <em>Transportation</em>, TIME Best Inventions of 2025.
+Link: <a href="https://time.com/collections/best-inventions-2025/7318539/bmw-ix3/">https://time.com/collections/best-inventions-2025/7318539/bmw-ix3/</a></p>
+<p>The iX3 is the first production model of BMW's "Neue Klasse", a vehicle architecture developed only for battery-electric cars. BMW invested more than $11 billion in the platform. The iX3 offers about 400 miles (more than 800 km WLTP) of range and adds 175 miles in 10 minutes of charging (peak 400 kW) [1, 2]. It premiered at IAA Mobility in Munich on 5 September 2025. Series production started in October 2025 at the new BMW plant in Debrecen, Hungary, and the pan-European market launch took place on 7 March 2026 at a starting price of €68,900 [2, 3].</p>
+<h2>2. Look-alike innovation from the past: BMW i3 (2013)</h2>
+<p>The closest historical analogue is the <strong>BMW i3</strong>. It was BMW's first large-series fully electric car, launched in November 2013 and produced in Leipzig until June/July 2022 [5, 6]. Both cars mark a technological break for the same company. The i3 was built on the purpose-built <em>LifeDrive</em> architecture, with an aluminium drive module and a carbon-fibre passenger cell. The iX3 is built on the purpose-built <em>Neue Klasse</em> architecture, with BMW's own Gen6 high-voltage battery and a new "digital nervous system" of four central computers that receive over-the-air updates [1, 6]. In both cases BMW did not convert an existing combustion model. It built a new electric-only platform and positioned the car as the symbol of the brand's transformation. Even the name repeats: at the 2025 premiere BMW presented the iX3 together with the upcoming electric i3 sedan [2]. Because the seller, the distribution network, the price tier (premium) and the target customer (European premium buyers) are the same, the i3 adoption curve is a much better analogue than generic EV-market data. Category data would mix the iX3 with very cheap Chinese EVs and plug-in hybrids.</p>
+<p>The market impact of the two cars also points in the same direction. The i3 ranked third among all-electric cars sold worldwide in 2014-2016, and in its early years more than 80% of its buyers were new to the BMW Group [5, 6]. Early demand for the iX3 has also been strong. Every third BEV that BMW customers in Europe ordered after the premiere was an iX3, and BMW raised the price by €2,000 before the launch because of demand [3, 7]. The main differences are segment and market maturity. The i3 was a small city car with 130-160 km of range (NEDC) [5], launched when Europe bought only about 59,000 electric cars per year. The iX3 is a mid-size SUV, the most popular body type in Europe (almost 54% of 2024 registrations [8]), launched into a market of 4.3 million electric cars per year [9]. I keep this difference in mind in Section 5: the <em>shape</em> of imitation (q) should carry over from the i3, but the <em>speed of the launch</em> (p) should be higher for the iX3.</p>
+<h2>3. Historical data</h2>
+<p>The table below shows annual BMW i3 sales (both the BEV and the range-extender versions). The data file is <code>data/bmw_i3_sales.csv</code>, and the source for every row is listed in that file.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th style="text-align: right;">Global units</th>
+<th style="text-align: right;">Europe units</th>
+<th>Source (global / Europe)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013</td>
+<td style="text-align: right;">1,477</td>
+<td style="text-align: right;">1,477</td>
+<td>Best Selling Cars Blog [10]</td>
+</tr>
+<tr>
+<td>2014</td>
+<td style="text-align: right;">16,052</td>
+<td style="text-align: right;">9,744</td>
+<td>BMW press release [11] / Nissan Europe &amp; JATO [12]</td>
+</tr>
+<tr>
+<td>2015</td>
+<td style="text-align: right;">24,057</td>
+<td style="text-align: right;">12,047</td>
+<td>BMW press release [13] / JATO [12]</td>
+</tr>
+<tr>
+<td>2016</td>
+<td style="text-align: right;">~25,500</td>
+<td style="text-align: right;">15,060</td>
+<td>HybridCars [14] / EV Sales [15]</td>
+</tr>
+<tr>
+<td>2017</td>
+<td style="text-align: right;">31,482</td>
+<td style="text-align: right;">20,855</td>
+<td>BMW press release [16] / EV Sales [15]</td>
+</tr>
+<tr>
+<td>2018</td>
+<td style="text-align: right;">34,623</td>
+<td style="text-align: right;">24,432</td>
+<td>BMW Annual Report 2019 [17] / EV Sales [15]</td>
+</tr>
+<tr>
+<td>2019</td>
+<td style="text-align: right;">39,501</td>
+<td style="text-align: right;">32,451</td>
+<td>BMW Annual Report 2019 [17] / JATO [18]</td>
+</tr>
+<tr>
+<td>2020</td>
+<td style="text-align: right;">26,770</td>
+<td style="text-align: right;">23,361</td>
+<td>BMW press release [19] / Carsalesbase [20]</td>
+</tr>
+<tr>
+<td>2021</td>
+<td style="text-align: right;">28,216</td>
+<td style="text-align: right;">25,029</td>
+<td>BMW press release [19] / Carsalesbase [20]</td>
+</tr>
+<tr>
+<td>2022*</td>
+<td style="text-align: right;">22,322</td>
+<td style="text-align: right;">19,802</td>
+<td>derived from 250,000 total units [6]</td>
+</tr>
+</tbody>
+</table>
+<p>*There is no official 2022 sales figure. BMW reports that 250,000 i3s were built over the whole production run [6]. Sales over 2013-2021 sum to 227,678, so I approximate 2022 global sales as 250,000 − 227,678 = 22,322 (Fermi estimate: lifetime production ≈ lifetime sales). For Europe I apply the 2021 European share (25,029 / 28,216 = 88.7%). For 2018 I use the figure BMW restated in its 2019 annual report (34,623) instead of the originally reported 34,829 [17].</p>
+<p>Additional market data used: European electric car sales 2010-2025 from the IEA <em>Global EV Outlook</em> through Our World in Data (<code>data/electric_car_sales_iea_owid.csv</code>) [9], and ACEA registration statistics plus BMW Group sales releases for the market potential (<code>data/fermi_inputs.csv</code>).</p>
+<p><img alt="European EV market" src="../img/europe_ev_market.png" /></p>
+<h2>4. Estimating the Bass model parameters</h2>
+<p>The Bass model [21] splits adoption into innovators (coefficient <strong>p</strong>) and imitators (coefficient <strong>q</strong>). The cumulative share of the market potential <strong>M</strong> that has adopted by time <em>t</em> is</p>
+<p>\[F(t) = \frac{1 - e^{-(p+q)t}}{1 + \frac{q}{p} e^{-(p+q)t}}, \qquad S_t = M\,[F(t) - F(t-1)],\]</p>
+<p>where \(S_t\) is the number of new adopters in year <em>t</em> (<em>t</em> = 1 for 2013). I estimate p, q and M with <strong>non-linear least squares</strong> on annual sales, as recommended by Srinivasan &amp; Mason [22]. As a cross-check I also use the original <strong>OLS regression</strong> of Bass [21], \(S_t = a + b N_{t-1} + c N_{t-1}^2\). The code is in <code>helper_functions.py</code> and <code>fit_lookalike.py</code>, and the results are saved in <code>data/bass_parameters.csv</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Method</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: right;">q</th>
+<th style="text-align: right;">M</th>
+<th style="text-align: right;">R²</th>
+<th style="text-align: right;">Peak year</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Europe</strong></td>
+<td><strong>NLS</strong></td>
+<td style="text-align: right;"><strong>0.0170</strong> (SE 0.0036)</td>
+<td style="text-align: right;"><strong>0.471</strong> (SE 0.055)</td>
+<td style="text-align: right;"><strong>225,827</strong> (SE 16,802)</td>
+<td style="text-align: right;"><strong>0.92</strong></td>
+<td style="text-align: right;"><strong>2018.8</strong></td>
+</tr>
+<tr>
+<td>Europe</td>
+<td>OLS (Bass 1969)</td>
+<td style="text-align: right;">0.0282</td>
+<td style="text-align: right;">0.496</td>
+<td style="text-align: right;">208,523</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">2017.5</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>NLS</td>
+<td style="text-align: right;">0.0259 (SE 0.0055)</td>
+<td style="text-align: right;">0.443 (SE 0.062)</td>
+<td style="text-align: right;">294,272 (SE 23,516)</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">2018.1</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>OLS (Bass 1969)</td>
+<td style="text-align: right;">0.0406</td>
+<td style="text-align: right;">0.444</td>
+<td style="text-align: right;">276,687</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">2016.9</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="BMW i3 Bass fit" src="../img/i3_bass_fit.png" /></p>
+<p><strong>Interpretation.</strong></p>
+<ul>
+<li>The European NLS model explains 92% of the year-to-year variation. It places the sales peak at the end of 2018, and the observed peak was in 2019.</li>
+<li>q is about 28 times larger than p, so the i3 spread mainly by word of mouth and imitation, not by spontaneous early adoption. This is typical for a radically new and unfamiliar product.</li>
+<li>Compared with the meta-analysis averages of Sultan, Farley &amp; Lehmann [23] (p ≈ 0.03, q ≈ 0.38), the i3 had a lower innovation coefficient and a higher imitation coefficient.</li>
+<li>q is very stable across the scope and estimation method (0.44-0.50), while p and M are more sensitive. The OLS estimates fit worse because the regression suffers from multicollinearity between \(N_{t-1}\) and \(N_{t-1}^2\) and from time-interval bias [22]. I therefore use the <strong>European NLS estimates (p = 0.0170, q = 0.471)</strong> in the forecast.</li>
+<li>The fitted M (≈226,000) is above the 184,000 i3s actually sold in Europe. BMW ended production while demand was still strong ("its popularity did not wane as it matured" [6]), so the model sees some unserved potential.</li>
+</ul>
+<h2>5. Predicting the diffusion of the BMW iX3</h2>
+<h3>5.1 Market potential M (Fermi estimate)</h3>
+<p>There is no long data history for the iX3, so I build M from published figures (<code>data/fermi_inputs.csv</code>, <code>forecast_ix3.py</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th style="text-align: right;">Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BMW Group deliveries in Europe, 2025</td>
+<td style="text-align: right;">1,016,360</td>
+<td>BMW Group [24]</td>
+</tr>
+<tr>
+<td>× BEV share of BMW's European sales</td>
+<td style="text-align: right;">≈ 25%</td>
+<td>BMW Group [24]; consistent with &gt;202,000 BEVs = 26.3% in EU27+2 [25]</td>
+</tr>
+<tr>
+<td>× iX3 share of BMW BEV orders in Europe</td>
+<td style="text-align: right;">≈ 1/3</td>
+<td>BMW Sales Director J. Goller, via electrive [3]</td>
+</tr>
+<tr>
+<td>= iX3 volume per year</td>
+<td style="text-align: right;">≈ 84,700</td>
+<td></td>
+</tr>
+<tr>
+<td>× model life cycle</td>
+<td style="text-align: right;">8 years</td>
+<td>i3 was produced ≈ 8.5 years [6]</td>
+</tr>
+<tr>
+<td><strong>= M (base case)</strong></td>
+<td style="text-align: right;"><strong>≈ 677,500</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Over the life cycle, two forces work against each other. Europe's BEV market share keeps rising (from 15.4% in 2024 to 19.5% in 2025 in EU+EFTA+UK [26]), which pushes iX3 volume up. At the same time, BMW will launch about 40 new or updated Neue Klasse-based models by 2027 [27], including the electric 3 Series, which will take part of the iX3's share of BMW's BEVs. In the base case I assume these two effects cancel out. For the sensitivity range I use:</p>
+<ul>
+<li><strong>Low case:</strong> the iX3 takes 1/4 of BMW's BEVs and has a 7-year life cycle, giving M ≈ 444,700.</li>
+<li><strong>High case:</strong> BMW's European BEV share averages 35% over the cycle (up from 25% today, which is plausible under EU CO₂ targets), giving M ≈ 948,500.</li>
+</ul>
+<p>As a cross-check, the base M is about 3.7 times the i3's European lifetime volume. This is plausible: the European EV market is roughly 70 times larger than in 2013, and the iX3 competes in the largest segment rather than a niche city-car segment. The implied peak volumes are also compatible with the Debrecen plant's capacity of about 150,000 cars per year [28].</p>
+<h3>5.2 Two forecasting scenarios</h3>
+<p><strong>Scenario A, pure analogy.</strong> This scenario uses the i3's parameters directly: p = 0.0170, q = 0.471, M = 677,500. It predicts only <strong>14,500</strong> iX3 adopters in Europe in 2026, and the sales peak would only arrive around 2031.</p>
+<p>This contradicts the first real data. BMW produced its <strong>50,000th iX3 by 28 July 2026</strong>, only about nine months after the start of production. It had to add a second shift early in February 2026 and a third shift in September 2026 because of demand [29, 30]. One year after the premiere, <strong>100,000 customers in Europe had ordered the iX3</strong> [30]. Scenario A therefore underestimates the launch by a factor of about seven. This is expected. In 2013 the i3 had to create awareness of electric cars almost from zero. By 2026 the European market already sells 4.3 million electric cars a year [9], and BMW alone has delivered more than 1.5 million fully electric cars since 2013 [27]. Charging, EV knowledge and existing owners are all in place, so many more buyers adopt "on their own".</p>
+<p><strong>Scenario B, analogy calibrated with first-year data (preferred).</strong> I keep the imitation coefficient from the analogue (q = 0.471), because word-of-mouth dynamics for a BMW electric car should be similar. I then re-estimate p so that the model reproduces the observed first-year adoption: \(M \cdot F(1) = 100{,}000\). This gives <strong>p = 0.127</strong> for the base M (0.203 for the low M and 0.088 for the high M). Calibrating p to early sales while borrowing q from an analogue is a standard way to forecast a new product by analogy [31].</p>
+<p><img alt="iX3 annual forecast" src="../img/ix3_forecast_annual.png" /></p>
+<p>In Scenario B (base case), adoption peaks in <strong>2028</strong> at about <strong>126,000 cars per year</strong> and then declines as the market potential is used up. This is the typical Bass bell shape and is in line with a product life cycle that ends around 2033. In the high case, demand reaches about 153,000 cars per year in 2028-2029, which is above the total capacity of the Debrecen plant. In that case the curve would in practice be flattened and stretched by supply, which is consistent with BMW already moving to 24-hour production in September 2026 [30].</p>
+<p><img alt="iX3 cumulative forecast" src="../img/ix3_forecast_cumulative.png" /></p>
+<h2>6. Scope: Europe</h2>
+<p>I analyse the diffusion of the iX3 <strong>in Europe (EU + EFTA + UK)</strong>, not worldwide, for five reasons:</p>
+<ol>
+<li><strong>Launch market.</strong> The iX3 is built in Hungary and was launched pan-European on 7 March 2026 [3]. The only market-specific adoption figure available, 100,000 orders, refers to Europe [30].</li>
+<li><strong>The analogue is European.</strong> 72% of all i3 sales in 2013-2021 were in Europe (164,456 of 227,678 units, Section 3), so the i3's p and q describe European buyers.</li>
+<li><strong>BMW's electric business is concentrated in Europe.</strong> BEVs were about 25% of BMW's European sales in 2025, compared with 17.9% globally [24, 27]. BMW's European BEV sales grew 28.2% in 2025, while its deliveries in China fell 12.5% [24].</li>
+<li><strong>Consistent market data.</strong> ACEA publishes harmonised registration data for EU + EFTA + UK [26], which makes the market-potential calculation traceable.</li>
+<li><strong>Different dynamics elsewhere.</strong> A global model would mix very different markets. In China, BMW's sales are falling (−12.5% in 2025 [24]). In North America, iX3 pricing had not even been announced when the car went on sale in Europe [7]. One set of p and q would not describe all of these markets.</li>
+</ol>
+<h2>7. Estimated number of adopters by period (Europe)</h2>
+<p>The table shows new adopters per year (rounded). The full output is in <code>data/ix3_forecast.csv</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th style="text-align: right;">Scenario A (analogy only)</th>
+<th style="text-align: right;">B low (M = 444,658)</th>
+<th style="text-align: right;"><strong>B base (M = 677,506)</strong></th>
+<th style="text-align: right;">B high (M = 948,508)</th>
+<th style="text-align: right;"><strong>B base, cumulative</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026</td>
+<td style="text-align: right;">14,509</td>
+<td style="text-align: right;">100,000</td>
+<td style="text-align: right;"><strong>100,000</strong></td>
+<td style="text-align: right;">100,000</td>
+<td style="text-align: right;"><strong>100,000</strong></td>
+</tr>
+<tr>
+<td>2027</td>
+<td style="text-align: right;">22,342</td>
+<td style="text-align: right;">105,515</td>
+<td style="text-align: right;"><strong>122,131</strong></td>
+<td style="text-align: right;">132,056</td>
+<td style="text-align: right;"><strong>222,131</strong></td>
+</tr>
+<tr>
+<td>2028</td>
+<td style="text-align: right;">33,328</td>
+<td style="text-align: right;">89,738</td>
+<td style="text-align: right;"><strong>126,411</strong></td>
+<td style="text-align: right;">153,244</td>
+<td style="text-align: right;"><strong>348,542</strong></td>
+</tr>
+<tr>
+<td>2029</td>
+<td style="text-align: right;">47,431</td>
+<td style="text-align: right;">63,353</td>
+<td style="text-align: right;"><strong>110,298</strong></td>
+<td style="text-align: right;">153,288</td>
+<td style="text-align: right;"><strong>458,840</strong></td>
+</tr>
+<tr>
+<td>2030</td>
+<td style="text-align: right;">63,173</td>
+<td style="text-align: right;">39,079</td>
+<td style="text-align: right;"><strong>82,784</strong></td>
+<td style="text-align: right;">132,164</td>
+<td style="text-align: right;"><strong>541,624</strong></td>
+</tr>
+<tr>
+<td>2031</td>
+<td style="text-align: right;">77,100</td>
+<td style="text-align: right;">22,133</td>
+<td style="text-align: right;"><strong>55,379</strong></td>
+<td style="text-align: right;">100,125</td>
+<td style="text-align: right;"><strong>597,003</strong></td>
+</tr>
+<tr>
+<td>2032</td>
+<td style="text-align: right;">84,666</td>
+<td style="text-align: right;">11,933</td>
+<td style="text-align: right;"><strong>34,251</strong></td>
+<td style="text-align: right;">68,670</td>
+<td style="text-align: right;"><strong>631,255</strong></td>
+</tr>
+<tr>
+<td>2033</td>
+<td style="text-align: right;">82,838</td>
+<td style="text-align: right;">6,263</td>
+<td style="text-align: right;"><strong>20,166</strong></td>
+<td style="text-align: right;">43,943</td>
+<td style="text-align: right;"><strong>651,421</strong></td>
+</tr>
+<tr>
+<td>2034</td>
+<td style="text-align: right;">72,385</td>
+<td style="text-align: right;">3,241</td>
+<td style="text-align: right;"><strong>11,531</strong></td>
+<td style="text-align: right;">26,886</td>
+<td style="text-align: right;"><strong>662,952</strong></td>
+</tr>
+<tr>
+<td>2035</td>
+<td style="text-align: right;">57,261</td>
+<td style="text-align: right;">1,665</td>
+<td style="text-align: right;"><strong>6,483</strong></td>
+<td style="text-align: right;">16,000</td>
+<td style="text-align: right;"><strong>669,435</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Main forecast (Scenario B, base):</strong> about <strong>650,000 BMW iX3s will be adopted in Europe by the end of 2033</strong> (96% of M). Adoption peaks in 2028, and by 2030 about 80% of the total potential (≈ 540,000 cars) will have adopted. The realistic range is roughly 440,000-880,000 cars by 2033, depending mainly on how quickly Europe moves to battery-electric cars.</p>
+<h3>Limitations</h3>
+<ul>
+<li><em>Orders are not deliveries.</em> The 100,000 figure counts orders from the year after the premiere (September 2025 to September 2026). I treat it as period-1 adoption.</li>
+<li><em>Two i3 data points are estimates</em> (2016 global, 2022). Removing 2022 from the fit changes the estimates only slightly (p = 0.0166, q = 0.486, M = 219,867 instead of 0.0170, 0.471 and 225,827).</li>
+<li><em>The standard Bass model has no price, marketing or supply variables.</em> Extensions such as the Generalized Bass Model could include the €63,400 rear-wheel-drive version [4], incentives and the capacity limit.</li>
+<li><em>Repeat and fleet purchases</em> are counted as adopters, since car sales data cannot tell first-time buyers from repeat buyers.</li>
+</ul>
+<h2>References</h2>
+<p>[1] TIME (2025). <em>BMW iX3 - The Best Inventions of 2025.</em> https://time.com/collections/best-inventions-2025/7318539/bmw-ix3/</p>
+<p>[2] BMW Group (5 Sep 2025). <em>World Premiere BMW iX3</em> (press release). https://www.press.bmwgroup.com/global/article/detail/T0452405EN/world-premiere-bmw-ix3</p>
+<p>[3] Treiss, F. (27 Jan 2026). <em>BMW hands over first iX3 models to customers ahead of schedule.</em> electrive.com. https://www.electrive.com/2026/01/27/bmw-hands-over-first-ix3-models-to-customers-ahead-of-schedule/</p>
+<p>[4] electrive.com (31 Mar 2026). <em>BMW unveils entry-level iX3 RWD with €63,400 price tag.</em> https://www.electrive.com/2026/03/31/bmw-introduces-new-ix3-rwd-starting-at-e63400/</p>
+<p>[5] Wikipedia contributors. <em>BMW i3 (hatchback)</em> (sales tables compiled from the primary sources below). https://en.wikipedia.org/wiki/BMW_i3_(hatchback)</p>
+<p>[6] BMW Group (30 Jun 2022). <em>The electric pioneer on the home stretch: Production of the BMW i3 comes to a close</em> (press release). https://www.press.bmwgroup.com/canada/article/detail/T0402057EN</p>
+<p>[7] Tarantas News (30 Jan 2026). <em>BMW raises iX3 electric car price by €2,000 due to high demand.</em> https://tarantas.news/en/posts/id11063-bmw-raises-ix3-electric-car-price-by-eur2-000-due-to-high-demand</p>
+<p>[8] JATO Dynamics (Jan 2025). <em>European new car registrations, full year 2024</em> (press release). https://www.lautomobile.aci.it/app/uploads/2025/01/JATO-European-Volumes-Press-Release-Full-year-2024-Final.pdf</p>
+<p>[9] International Energy Agency (2026). <em>Global EV Outlook</em> - processed by Our World in Data, "Electric car sales". https://ourworldindata.org/grapher/electric-car-sales</p>
+<p>[10] Gasnier, M. (19 Jul 2014). <em>World Full Year 2013: Top 1000 best-selling models.</em> Best Selling Cars Blog.</p>
+<p>[11] BMW Group (9 Jan 2015). <em>BMW Group sells more than 2 million vehicles in 2014</em> (press release).</p>
+<p>[12] Gibbs, N. (15 Mar 2016). <em>Hybrid sales expected to triple in Europe as tougher CO2 rules loom.</em> Automotive News Europe (JATO Dynamics data); Nissan Europe (19 Jan 2015) press release.</p>
+<p>[13] BMW Group (11 Jan 2016). <em>BMW Group achieves fifth consecutive record sales year</em> (press release).</p>
+<p>[14] Cobb, J. (26 Jan 2017). <em>Tesla Model S is world's best-selling plug-in car for second year in a row.</em> HybridCars.com.</p>
+<p>[15] Pontes, J. (2017-2019). <em>Europe December 2016 / 2017 / 2018.</em> EV Sales blog.</p>
+<p>[16] BMW Group (25 Jan 2018). <em>Record sales for BMW Group worldwide during 2017</em> (press release).</p>
+<p>[17] BMW Group (18 Mar 2020). <em>BMW Group Geschäftsbericht 2019</em> (Annual Report 2019), p. 68.</p>
+<p>[18] Gauthier, M. (19 Feb 2020). <em>European car sales climbed to 15.7 million units last year.</em> Carscoops (JATO Dynamics data).</p>
+<p>[19] BMW Group (12 Jan 2022). <em>Electro-offensive and number one in premium segment: BMW Group posts strong sales for 2021</em> (press release).</p>
+<p>[20] Demandt, B. <em>BMW i3 European sales figures.</em> Carsalesbase.com.</p>
+<p>[21] Bass, F. M. (1969). A new product growth for model consumer durables. <em>Management Science, 15</em>(5), 215-227.</p>
+<p>[22] Srinivasan, V., &amp; Mason, C. H. (1986). Nonlinear least squares estimation of new product diffusion models. <em>Marketing Science, 5</em>(2), 169-178.</p>
+<p>[23] Sultan, F., Farley, J. U., &amp; Lehmann, D. R. (1990). A meta-analysis of applications of diffusion models. <em>Journal of Marketing Research, 27</em>(1), 70-77.</p>
+<p>[24] BMW Group (9 Jan 2026). <em>BMW Group vehicle sales grew in 2025 - strong performance particularly in Europe and the US, and with electrified models</em> (press release). https://www.press.bmwgroup.com/global/article/detail/T0454859EN</p>
+<p>[25] BMW Group (29 Jan 2026). <em>BMW Group once again reduces EU CO2 fleet-wide emissions in 2025</em> (media information).</p>
+<p>[26] ACEA (Jan 2026). <em>New car registrations: +1.8% in 2025; battery-electric 17.4% market share</em> (press release with EU + EFTA + UK tables). https://www.acea.auto/pc-registrations/new-car-registrations-1-8-in-2025-battery-electric-17-4-market-share/</p>
+<p>[27] BMW Group (Mar 2026). <em>Stable Group earnings thanks to consistent strategy: BMW Group on track</em> (Annual Conference 2026 press release). https://www.bmwgroup.com/content/dam/grpw/websites/bmwgroup_com/ir/downloads/en/2026/bericht/BMW_Group_PR_Annual_Conference_2026.pdf</p>
+<p>[28] BMW Group (1 Jun 2022). <em>Foundation stone laid for state-of-the-art plant in Debrecen</em> (press release). https://www.press.bmwgroup.com/global/article/detail/T0395455EN</p>
+<p>[29] BMW Group (28 Jul 2026). <em>Ramp-up in record time: BMW Group Plant Debrecen produces 50,000th BMW iX3</em> (press release). https://www.press.bmwgroup.com/global/article/detail/T0459620EN</p>
+<p>[30] BMW Group Hungary (Sep 2026). <em>BMW Group Plant Debrecen moves to 24-hour production; 100,000 iX3 orders in Europe</em> (press release). https://www.press.bmwgroup.com/hungary/article/attachment/T0460836HU/654795</p>
+<p>[31] Lilien, G. L., Rangaswamy, A., &amp; Van den Bulte, C. (2000). Diffusion models: Managerial applications and software. In V. Mahajan, E. Muller &amp; Y. Wind (Eds.), <em>New-Product Diffusion Models</em> (pp. 295-311). Kluwer Academic.</p></body></html>

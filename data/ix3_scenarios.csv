@@ -1,0 +1,5 @@
+scenario,p,q,M,peak_year
+"A: analog (i3 p, q)",0.0170,0.4707,677506,2031.8127
+"B: calibrated, M low",0.2033,0.4707,444658,2026.2458
+"B: calibrated, M base",0.1266,0.4707,677506,2027.1991
+"B: calibrated, M high",0.0880,0.4707,948508,2028.0019
